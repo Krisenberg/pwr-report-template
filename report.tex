@@ -1,0 +1,109 @@
+\documentclass{pwrReport}
+
+
+% Set document metadata
+\tableOfContentsName{My Custom Contents}
+\referencesName{Ź - r - ó - d - ł - a}
+\figureName{Fig...}
+\tableName{Tabelka}
+\titlePageLogoLeft{images/logo_PWR_podpis.png}
+\titlePageLogoRight{images/logo_WIT.png}
+
+\courseName{My course}
+\title{My title}
+\author{Jan Kowalski}
+\date{28.03.2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Lorem}
+    \subsection{Ipsum}
+        \subsubsection{Other section import}
+            \input{section_one}
+
+\section{Text styling}
+    This text is \textit{italics}, this \underline{underlined}, this \textbf{bolded}, and this
+    \textbf{\textit{\underline{has everything}}!}
+
+
+\section{Environments}
+    \subsection{Lists}
+        Itemized list:
+        \begin{itemize}
+            \item this
+            \item is
+            \item an itemized list.
+        \end{itemize}
+
+        Enumerated list:
+        \begin{enumerate}
+            \item this
+            \item is
+            \item an enumerated list.
+        \end{enumerate}
+
+    \subsection{Equations}
+        Inline equation: $\delta=b^2-4ac$.
+
+        \noindent Multi-line equations:
+        \begin{equation}
+            \sum_{n=1}^{5} n = 1+2+3+4+5=15
+            \label{sum_equation}
+        \end{equation}
+        \noindent We can reference them later, e.g. equation \ref{sum_equation}.
+
+    \subsection{Tables}
+        Table example:
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{|l|l|l|}
+                \hline
+                a & b & c \\ \hline
+                d & e & f \\ \hline
+                g & h & i \\ \hline
+            \end{tabular}
+            \caption{Simple table example}
+        \end{table}
+
+    \newpage
+    \subsection{Images}
+        WUST logo inserted below.
+        \begin{figure}[!htbp]%
+            \centering
+            \includegraphics[width=0.5\textwidth]{images/logo_PWR_podpis.png}
+            \caption{Wroclaw University of Science and Technology logo}%
+            \label{fig:wust_logo}
+        \end{figure}
+
+    \section{Code}
+    \code{Python}
+\begin{lstlisting}
+@staticmethod
+def analyze_behavior_patterns(
+    logs: list[dict], allowed_ids: list[str], logger: structlog.BoundLogger
+) -> tuple[list[str], list[str]]:
+    ...
+    positive_tracks, negative_tracks = set(), set()
+
+    for log in logs:
+        if log["track_id"] in allowed_ids:
+            if log["event"] == "NEXT" and float(log["percent"]) < 30:
+                negative_tracks.add(log["track_id"])
+            elif log["event"] == "PREVIOUS" and float(log["percent"]) > 70:
+                positive_tracks.add(log["track_id"])
+            elif float(log["percent"]) >= 90:
+                positive_tracks.add(log["track_id"])
+
+    return list(positive_tracks), list(negative_tracks)
+\end{lstlisting}
+
+    
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
+
