@@ -65,10 +65,8 @@
 
 % Keywoards to specify the article: title, author, date, logo etc.
 \def\titlePageLogoLeft#1{\gdef\@titlePageLogoLeft{#1}}
-\def\@titlePageLogoLeft{\@latex@error{No \noexpand\titlePageLogoLeft given}\@ehc}
 
 \def\titlePageLogoRight#1{\gdef\@titlePageLogoRight{#1}}
-\def\@titlePageLogoRight{\@latex@error{No \noexpand\titlePageLogoRight given}\@ehc}
 
 \def\courseName#1{\gdef\@courseName{#1}}
 \def\@courseName{\@latex@error{No \noexpand\courseName given}\@ehc}
@@ -94,6 +92,8 @@
 
 \def\tableName#1{\gdef\@tableName{#1}}
 \def\@tableName{\@latex@error{No \noexpand\tableName given}\@ehc}
+
+\def\tableOfContentsNameTopMargin#1{\gdef\@tableOfContentsNameTopMargin{#1}}
 
 \addto\captionspolish{%
     \renewcommand{\contentsname}{\@tableOfContentsName}
@@ -132,22 +132,46 @@
 \renewcommand{\maketitle}{%
     \thispagestyle{empty}  % Do not use any page style on the title page
 
-    % Insert logo images
-    \begin{center}
-        \makebox[\textwidth][s]{%
-          \includegraphics[height=1.5cm]{\@titlePageLogoLeft}%
-          \hfill%
-          \includegraphics[height=1.5cm]{\@titlePageLogoRight}%
-        }
-    \end{center}
+    % Only display logos if at least one is defined
+    \newif\iflogosdefined
+    \logosdefinedfalse
 
-    \vspace{10ex}
+    % Check if left logo is defined
+    \@ifundefined{@titlePageLogoLeft}{}{%
+        \logosdefinedtrue
+    }
+
+    % Check if right logo is defined
+    \@ifundefined{@titlePageLogoRight}{}{%
+        \logosdefinedtrue
+    }
+
+    % Display logos only if at least one is defined
+    \iflogosdefined
+        \begin{center}
+            \makebox[\textwidth][s]{%
+                \@ifundefined{@titlePageLogoLeft}{}{%
+                    \includegraphics[height=1.5cm]{\@titlePageLogoLeft}%
+                }%
+                \hfill%
+                \@ifundefined{@titlePageLogoRight}{}{%
+                    \includegraphics[height=1.5cm]{\@titlePageLogoRight}%
+                }%
+            }
+        \end{center}
+        \vspace{2cm}
+    \fi
     \begin{center}
         {\Huge \@title }\\[3ex]
         {\Large \@courseName }\\[12ex]
         {\Large  \@date}\\[12ex]
-        {\Large  \@author}\\[25ex]
+        {\Large  \@author}\\
     \end{center}
+    \@ifundefined{@tableOfContentsNameTopMargin}{
+        \vspace{3cm}
+    }{%
+        \vspace{\@tableOfContentsNameTopMargin}
+    }
 }
 
 % Custom colors
