@@ -74,9 +74,9 @@
 \def\title#1{\gdef\@title{#1}}
 \def\@title{\@latex@error{No \noexpand\title given}\@ehc}
 
-\def\courseNameAbbrev#1{\gdef\@courseNameAbbrev{#1}}
+\def\courseNameShort#1{\gdef\@courseNameShort{#1}}
 
-\def\titleAbbrev#1{\gdef\@titleAbbrev{#1}}
+\def\titleShort#1{\gdef\@titleShort{#1}}
 
 \def\author#1{\gdef\@author{#1}}
 \def\@author{\@latex@error{No \noexpand\author given}\@ehc}
@@ -110,11 +110,11 @@
 
 % Create commands that will return the appropriate title / course name version for the header (full or abbreviated)
 \newcommand{\getTitleHeader}{%
-  \@ifundefined{@titleAbbrev}{\@title}{\@titleAbbrev}%
+  \@ifundefined{@titleShort}{\@title}{\@titleShort}%
 }
 
 \newcommand{\getCourseNameHeader}{%
-  \@ifundefined{@courseNameAbbrev}{\@courseName}{\@courseNameAbbrev}%
+  \@ifundefined{@courseNameShort}{\@courseName}{\@courseNameShort}%
 }
 
 \fancypagestyle{fancy}{

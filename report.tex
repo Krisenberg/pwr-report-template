@@ -1,28 +1,35 @@
-\documentclass{pwrReport}
+\documentclass{pwrReport} % Custom document class for structured reports
 
 
-% Set document metadata
-\tableOfContentsName{My Custom Contents}
-\referencesName{$\downarrow \Re$ - e - f - e - r - e - n - c - e - s $\downarrow$}
-\figureName{Fig...}
-\tableName{Tabelka}
-\titlePageLogoLeft{images/pwr/logo_pwr.png}
-\titlePageLogoRight{images/pwr/logo_wit.png}
-\tableOfContentsNameTopMargin{3cm}
+% -------------------- Document Metadata --------------------
+\tableOfContentsName{My Custom Contents}  % Custom name for Table of Contents
+\referencesName{$\downarrow \Re$ - e - f - e - r - e - n - c - e - s $\downarrow$} % Custom References name
+\figureName{Fig...}  % Custom figure name
+\tableName{Tabelka}  % Custom table name
+\titlePageLogoLeft{images/pwr/logo_pwr.png}  % Left logo on title page
+\titlePageLogoRight{images/pwr/logo_wit.png} % Right logo on title page
+\tableOfContentsNameTopMargin{3cm}  % Adjusts top margin for TOC
 
+
+% -------------------- Title Page Information --------------------
 \title{Lab 1 - Application of Artificial Intelligence Algorithm in Games}
-\titleAbbrev{Lab 1 - AI in Games}  % Not required but might be useful when title is very long
+\titleShort{Lab 1 - AI in Games}  % Shortened title (if needed)
 \courseName{Advanced Topics in Artificial Intelligence}
-\courseNameAbbrev{ATAI}  % Not required but might be useful when course name is very long
+% \courseNameShort{ATAI}  % Shortened course name (if needed)
 \author{Jan Kowalski}
 \date{28.03.2025}
 
+
 \begin{document}
 
-\maketitle
-\tableofcontents
 
+% -------------------- Title Page & Table of Contents --------------------
+\maketitle  % Generates the title page
+\tableofcontents  % Generates the table of contents
 \newpage
+
+
+% -------------------- Rest of the report (content) --------------------
 
 \section{Lorem}
     \subsection{Ipsum}
@@ -105,7 +112,8 @@ def analyze_behavior_patterns(
     return list(positive_tracks), list(negative_tracks)
 \end{lstlisting}
 
-    
+
+% -------------------- References (from the references.bib file) --------------------
 \bibliographystyle{plain}
 \bibliography{references}
 \end{document}
