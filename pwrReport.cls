@@ -76,6 +76,10 @@
 \def\title#1{\gdef\@title{#1}}
 \def\@title{\@latex@error{No \noexpand\title given}\@ehc}
 
+\def\courseNameAbbrev#1{\gdef\@courseNameAbbrev{#1}}
+
+\def\titleAbbrev#1{\gdef\@titleAbbrev{#1}}
+
 \def\author#1{\gdef\@author{#1}}
 \def\@author{\@latex@error{No \noexpand\author given}\@ehc}
 
@@ -104,11 +108,20 @@
     lslash={ł}
 }
 
+% Create commands that will return the appropriate title / course name version for the header (full or abbreviated)
+\newcommand{\getTitleHeader}{%
+  \@ifundefined{@titleAbbrev}{\@title}{\@titleAbbrev}%
+}
+
+\newcommand{\getCourseNameHeader}{%
+  \@ifundefined{@courseNameAbbrev}{\@courseName}{\@courseNameAbbrev}%
+}
+
 \fancypagestyle{fancy}{
     \fancyhf{} % Clear everything
     \renewcommand{\headrule}{\vspace*{1mm}\hrule height 0.75pt} % Header line
-    \fancyhead[L]{\@title} % Title in header (on the left)
-    \fancyhead[R]{\@courseName} % Title in header (on the rigth)
+    \fancyhead[L]{\getTitleHeader} % Title in header (on the left)
+    \fancyhead[R]{\getCourseNameHeader} % Title in header (on the rigth)
     \fancyfoot[C]{\thepage} % Page number in footer (centered)
 }
 \pagestyle{fancy}
@@ -121,15 +134,14 @@
 
     % Insert logo images
     \begin{center}
-        \noindent
-        \begin{tabularx}{\textwidth}{@{} p{2cm} X p{2cm} @{}}
-            \parbox[c][2cm][c]{2cm}{\centering \includegraphics[height=1.5cm]{\@titlePageLogoLeft}} &
-            \hfill &
-            \parbox[c][2cm][c]{2cm}{\centering \includegraphics[height=1.5cm]{\@titlePageLogoRight}}
-        \end{tabularx}
-    \end{center} 
+        \makebox[\textwidth][s]{%
+          \includegraphics[height=1.5cm]{\@titlePageLogoLeft}%
+          \hfill%
+          \includegraphics[height=1.5cm]{\@titlePageLogoRight}%
+        }
+    \end{center}
 
-    \vspace{1.5cm}
+    \vspace{10ex}
     \begin{center}
         {\Huge \@title }\\[3ex]
         {\Large \@courseName }\\[12ex]
